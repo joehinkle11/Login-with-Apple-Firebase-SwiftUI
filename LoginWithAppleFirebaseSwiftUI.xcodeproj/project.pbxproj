@@ -16,7 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9F4A0BA023A6B112005F87AE /* LoginWithAppleFirebaseSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoginWithAppleFirebaseSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F4A0BA023A6B112005F87AE /* Login with Apple to Firebase with SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Login with Apple to Firebase with SwiftUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F4A0BA323A6B112005F87AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9F4A0BA523A6B112005F87AE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		9F4A0BA723A6B112005F87AE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -48,7 +48,7 @@
 		9F4A0BA123A6B112005F87AE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9F4A0BA023A6B112005F87AE /* LoginWithAppleFirebaseSwiftUI.app */,
+				9F4A0BA023A6B112005F87AE /* Login with Apple to Firebase with SwiftUI.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -92,7 +92,7 @@
 			);
 			name = LoginWithAppleFirebaseSwiftUI;
 			productName = LoginWithAppleFirebaseSwiftUI;
-			productReference = 9F4A0BA023A6B112005F87AE /* LoginWithAppleFirebaseSwiftUI.app */;
+			productReference = 9F4A0BA023A6B112005F87AE /* Login with Apple to Firebase with SwiftUI.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -284,6 +284,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"LoginWithAppleFirebaseSwiftUI/Preview Content\"";
 				DEVELOPMENT_TEAM = B3GJXRTH64;
@@ -293,8 +294,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.joehinkle.LoginWithAppleFirebaseSwiftUI;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = io.joehinkle.loginwithapplefirebaseswiftui;
+				PRODUCT_NAME = "Login with Apple to Firebase with SwiftUI";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -304,6 +306,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"LoginWithAppleFirebaseSwiftUI/Preview Content\"";
 				DEVELOPMENT_TEAM = B3GJXRTH64;
@@ -313,8 +316,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.joehinkle.LoginWithAppleFirebaseSwiftUI;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = io.joehinkle.loginwithapplefirebaseswiftui;
+				PRODUCT_NAME = "Login with Apple to Firebase with SwiftUI";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
