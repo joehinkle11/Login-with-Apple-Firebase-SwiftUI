@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,10 @@
 		9F4A0BB023A6B115005F87AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A0BAE23A6B115005F87AE /* LaunchScreen.storyboard */; };
 		9F4A0BB923A6BD2B005F87AE /* SignInWithAppleToFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4A0BB823A6BD2B005F87AE /* SignInWithAppleToFirebase.swift */; };
 		9F4A0BBB23A6C2AE005F87AE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A0BBA23A6C2AE005F87AE /* GoogleService-Info.plist */; };
+		9F4A0BC123A6D136005F87AE /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4A0BBD23A6D136005F87AE /* UserData.swift */; };
+		9F4A0BC223A6D136005F87AE /* UserDataKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4A0BBE23A6D136005F87AE /* UserDataKeychain.swift */; };
+		9F4A0BC323A6D136005F87AE /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4A0BBF23A6D136005F87AE /* Keychain.swift */; };
+		9F4A0BC423A6D136005F87AE /* SharedWebCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4A0BC023A6D136005F87AE /* SharedWebCredential.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +36,10 @@
 		9F4A0BB123A6B115005F87AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9F4A0BB823A6BD2B005F87AE /* SignInWithAppleToFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleToFirebase.swift; sourceTree = "<group>"; };
 		9F4A0BBA23A6C2AE005F87AE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9F4A0BBD23A6D136005F87AE /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		9F4A0BBE23A6D136005F87AE /* UserDataKeychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataKeychain.swift; sourceTree = "<group>"; };
+		9F4A0BBF23A6D136005F87AE /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
+		9F4A0BC023A6D136005F87AE /* SharedWebCredential.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedWebCredential.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +60,6 @@
 				02F346C956B67BF311E5E8BD /* Pods-LoginWithAppleFirebaseSwiftUI.debug.xcconfig */,
 				0652676BD964768FE2DB2CEE /* Pods-LoginWithAppleFirebaseSwiftUI.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -102,8 +109,20 @@
 			isa = PBXGroup;
 			children = (
 				9F4A0BB823A6BD2B005F87AE /* SignInWithAppleToFirebase.swift */,
+				9F4A0BBC23A6D136005F87AE /* CredentialStorage */,
 			);
 			path = SignInWithAppleToFirebase;
+			sourceTree = "<group>";
+		};
+		9F4A0BBC23A6D136005F87AE /* CredentialStorage */ = {
+			isa = PBXGroup;
+			children = (
+				9F4A0BBD23A6D136005F87AE /* UserData.swift */,
+				9F4A0BBE23A6D136005F87AE /* UserDataKeychain.swift */,
+				9F4A0BBF23A6D136005F87AE /* Keychain.swift */,
+				9F4A0BC023A6D136005F87AE /* SharedWebCredential.swift */,
+			);
+			path = CredentialStorage;
 			sourceTree = "<group>";
 		};
 		D8734F629C10180D13D54751 /* Frameworks */ = {
@@ -233,7 +252,11 @@
 				9F4A0BB923A6BD2B005F87AE /* SignInWithAppleToFirebase.swift in Sources */,
 				9F4A0BA423A6B112005F87AE /* AppDelegate.swift in Sources */,
 				9F4A0BA623A6B112005F87AE /* SceneDelegate.swift in Sources */,
+				9F4A0BC123A6D136005F87AE /* UserData.swift in Sources */,
+				9F4A0BC423A6D136005F87AE /* SharedWebCredential.swift in Sources */,
+				9F4A0BC223A6D136005F87AE /* UserDataKeychain.swift in Sources */,
 				9F4A0BA823A6B112005F87AE /* ContentView.swift in Sources */,
+				9F4A0BC323A6D136005F87AE /* Keychain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
