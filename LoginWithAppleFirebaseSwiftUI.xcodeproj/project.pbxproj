@@ -13,10 +13,11 @@
 		9F4A0BAA23A6B115005F87AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A0BA923A6B115005F87AE /* Assets.xcassets */; };
 		9F4A0BAD23A6B115005F87AE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A0BAC23A6B115005F87AE /* Preview Assets.xcassets */; };
 		9F4A0BB023A6B115005F87AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A0BAE23A6B115005F87AE /* LaunchScreen.storyboard */; };
+		9F4A0BB923A6BD2B005F87AE /* SignInWithAppleToFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4A0BB823A6BD2B005F87AE /* SignInWithAppleToFirebase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9F4A0BA023A6B112005F87AE /* Login with Apple to Firebase with SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Login with Apple to Firebase with SwiftUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F4A0BA023A6B112005F87AE /* Login with Apple.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Login with Apple.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F4A0BA323A6B112005F87AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9F4A0BA523A6B112005F87AE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		9F4A0BA723A6B112005F87AE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -24,6 +25,7 @@
 		9F4A0BAC23A6B115005F87AE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9F4A0BAF23A6B115005F87AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9F4A0BB123A6B115005F87AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9F4A0BB823A6BD2B005F87AE /* SignInWithAppleToFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleToFirebase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,7 +50,7 @@
 		9F4A0BA123A6B112005F87AE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9F4A0BA023A6B112005F87AE /* Login with Apple to Firebase with SwiftUI.app */,
+				9F4A0BA023A6B112005F87AE /* Login with Apple.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -59,6 +61,7 @@
 				9F4A0BA323A6B112005F87AE /* AppDelegate.swift */,
 				9F4A0BA523A6B112005F87AE /* SceneDelegate.swift */,
 				9F4A0BA723A6B112005F87AE /* ContentView.swift */,
+				9F4A0BB723A6BCF2005F87AE /* SignInWithAppleToFirebase */,
 				9F4A0BA923A6B115005F87AE /* Assets.xcassets */,
 				9F4A0BAE23A6B115005F87AE /* LaunchScreen.storyboard */,
 				9F4A0BB123A6B115005F87AE /* Info.plist */,
@@ -73,6 +76,14 @@
 				9F4A0BAC23A6B115005F87AE /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		9F4A0BB723A6BCF2005F87AE /* SignInWithAppleToFirebase */ = {
+			isa = PBXGroup;
+			children = (
+				9F4A0BB823A6BD2B005F87AE /* SignInWithAppleToFirebase.swift */,
+			);
+			path = SignInWithAppleToFirebase;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -92,7 +103,7 @@
 			);
 			name = LoginWithAppleFirebaseSwiftUI;
 			productName = LoginWithAppleFirebaseSwiftUI;
-			productReference = 9F4A0BA023A6B112005F87AE /* Login with Apple to Firebase with SwiftUI.app */;
+			productReference = 9F4A0BA023A6B112005F87AE /* Login with Apple.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -146,6 +157,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F4A0BB923A6BD2B005F87AE /* SignInWithAppleToFirebase.swift in Sources */,
 				9F4A0BA423A6B112005F87AE /* AppDelegate.swift in Sources */,
 				9F4A0BA623A6B112005F87AE /* SceneDelegate.swift in Sources */,
 				9F4A0BA823A6B112005F87AE /* ContentView.swift in Sources */,
@@ -286,6 +298,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"LoginWithAppleFirebaseSwiftUI/Preview Content\"";
 				DEVELOPMENT_TEAM = B3GJXRTH64;
 				ENABLE_PREVIEWS = YES;
@@ -295,7 +308,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.joehinkle.loginwithapplefirebaseswiftui;
-				PRODUCT_NAME = "Login with Apple to Firebase with SwiftUI";
+				PRODUCT_NAME = "Login with Apple";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -308,6 +321,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"LoginWithAppleFirebaseSwiftUI/Preview Content\"";
 				DEVELOPMENT_TEAM = B3GJXRTH64;
 				ENABLE_PREVIEWS = YES;
@@ -317,7 +331,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.joehinkle.loginwithapplefirebaseswiftui;
-				PRODUCT_NAME = "Login with Apple to Firebase with SwiftUI";
+				PRODUCT_NAME = "Login with Apple";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
