@@ -12,10 +12,9 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                SignInWithAppleToFirebase()
-                    .onLoginEvent { 
-                        print("go")
-                    }
+                SignInWithAppleToFirebase({
+                    print("go")
+                })
                     .frame(height: 50, alignment: .center)
                     .padding(25)
                 Button(action: {

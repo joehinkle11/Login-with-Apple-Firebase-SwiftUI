@@ -24,7 +24,11 @@ final class SignInWithApple: UIViewRepresentable {
 final class SignInWithAppleToFirebase: UIViewControllerRepresentable {
     private var appleSignInDelegates: SignInWithAppleDelegates! = nil
     private var currentNonce: String? // Unhashed nonce.
-    private var onLoginEventCallback: (() -> ())?
+    private let onLoginEvent: (() -> ())?
+    
+    init(_ onLoginEvent: (() -> ())? = nil) {
+        self.onLoginEvent = onLoginEvent
+    }
     
     func makeUIViewController(context: Context) -> UIViewController {
         let vc = UIHostingController(rootView: SignInWithApple().onTapGesture(perform: showAppleLogin))
@@ -35,10 +39,10 @@ final class SignInWithAppleToFirebase: UIViewControllerRepresentable {
         
     }
     
-    public func onLoginEvent( onLoginEventCallback: @escaping () -> () ) -> SignInWithAppleToFirebase {
-        self.onLoginEventCallback = onLoginEventCallback
-        return self
-    }
+//    public func onLoginEvent( onLoginEventCallback: @escaping () -> () ) -> SignInWithAppleToFirebase {
+//        self.onLoginEventCallback = onLoginEventCallback
+//        return self
+//    }
     
     private func showAppleLogin() {
       let request = ASAuthorizationAppleIDProvider().createRequest()
