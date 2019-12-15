@@ -1,0 +1,5 @@
+# Cocoapods
+Pods/
+
+# Private Keys
+LoginWithAppleFirebaseSwiftUI/GoogleService-Info.plist
