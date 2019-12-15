@@ -40,6 +40,7 @@
 		9F4A0BBE23A6D136005F87AE /* UserDataKeychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataKeychain.swift; sourceTree = "<group>"; };
 		9F4A0BBF23A6D136005F87AE /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		9F4A0BC023A6D136005F87AE /* SharedWebCredential.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedWebCredential.swift; sourceTree = "<group>"; };
+		9F4A0BC523A6D5B8005F87AE /* Login with Apple.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Login with Apple.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +85,7 @@
 		9F4A0BA223A6B112005F87AE /* LoginWithAppleFirebaseSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				9F4A0BC523A6D5B8005F87AE /* Login with Apple.entitlements */,
 				9F4A0BA323A6B112005F87AE /* AppDelegate.swift */,
 				9F4A0BA523A6B112005F87AE /* SceneDelegate.swift */,
 				9F4A0BA723A6B112005F87AE /* ContentView.swift */,
@@ -393,6 +395,7 @@
 			baseConfigurationReference = 02F346C956B67BF311E5E8BD /* Pods-LoginWithAppleFirebaseSwiftUI.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "LoginWithAppleFirebaseSwiftUI/Login with Apple.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
@@ -417,6 +420,7 @@
 			baseConfigurationReference = 0652676BD964768FE2DB2CEE /* Pods-LoginWithAppleFirebaseSwiftUI.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "LoginWithAppleFirebaseSwiftUI/Login with Apple.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
