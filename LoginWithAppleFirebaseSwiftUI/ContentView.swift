@@ -13,6 +13,9 @@ struct ContentView: View {
         NavigationView {
             VStack {
                 SignInWithAppleToFirebase()
+                    .onLoginEvent { 
+                        print("go")
+                    }
                     .frame(height: 50, alignment: .center)
                     .padding(25)
                 Button(action: {

@@ -22,17 +22,22 @@ final class SignInWithApple: UIViewRepresentable {
 
 
 final class SignInWithAppleToFirebase: UIViewControllerRepresentable {
-    var window: UIWindow?
-    @State var appleSignInDelegates: SignInWithAppleDelegates! = nil
-    var currentNonce: String? // Unhashed nonce.
+    private var appleSignInDelegates: SignInWithAppleDelegates! = nil
+    private var currentNonce: String? // Unhashed nonce.
+    private var onLoginEventCallback: (() -> ())?
     
     func makeUIViewController(context: Context) -> UIViewController {
-        let vc = SignInWithAppleHostingVC(rootView: SignInWithApple().onTapGesture(perform: showAppleLogin))
+        let vc = UIHostingController(rootView: SignInWithApple().onTapGesture(perform: showAppleLogin))
         return vc as UIViewController
     }
   
     func updateUIViewController(_ uiView: UIViewController, context: Context) {
         
+    }
+    
+    public func onLoginEvent( onLoginEventCallback: @escaping () -> () ) -> SignInWithAppleToFirebase {
+        self.onLoginEventCallback = onLoginEventCallback
+        return self
     }
     
     private func showAppleLogin() {
@@ -57,7 +62,7 @@ final class SignInWithAppleToFirebase: UIViewControllerRepresentable {
     }
 
     private func performSignIn(using requests: [ASAuthorizationRequest]) {
-      appleSignInDelegates = SignInWithAppleDelegates(window: window) { success in
+      appleSignInDelegates = SignInWithAppleDelegates(window: nil) { success in
         if success {
           // update UI
         } else {
@@ -204,10 +209,4 @@ extension SignInWithAppleDelegates: ASAuthorizationControllerPresentationContext
   func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
     return self.window
   }
-}
-
-
-class SignInWithAppleHostingVC<Content>: UIHostingController<Content>, UINavigationControllerDelegate where Content : View {
-
-
 }
