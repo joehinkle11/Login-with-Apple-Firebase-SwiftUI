@@ -70,6 +70,8 @@ struct ContentView: View {
             }
             .navigationBarTitle("Sign in with Apple to Firebase with SwiftUI Demo", displayMode: .inline)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
+            .padding(0)
     }
 }
 
