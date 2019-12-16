@@ -6,6 +6,22 @@ I made this SwiftUI component to handle logging in with Apple to Firebase.
 
 <p align="center"><img src="https://raw.githubusercontent.com/joehinkle11/Login-with-Apple-Firebase-SwiftUI/master/demo.gif"/></p>
 
+# Usage in SwiftUI
+
+```swift
+struct ContentView: View {
+    var body: some View {
+        SignInWithAppleToFirebase({ response in
+            if response == .success {
+                print("logged into Firebase through Apple!")
+            } else if response == .error {
+                print("error. Maybe the user cancelled or there's no internet")
+            }
+        })
+    }
+}
+```
+
 # Setup
 
  1. Copy the entirety of the `SignInWithAppleToFirebase` folder to your repo. https://github.com/joehinkle11/Login-with-Apple-Firebase-SwiftUI/tree/master/LoginWithAppleFirebaseSwiftUI/SignInWithAppleToFirebase
