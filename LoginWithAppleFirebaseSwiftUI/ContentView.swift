@@ -7,13 +7,28 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct ContentView: View {
+    @State var text = "Nobody is logged in"
+    
     var body: some View {
         NavigationView {
             VStack {
-                SignInWithAppleToFirebase({
-                    print("go")
+                Text(text)
+                SignInWithAppleToFirebase({ response in
+                    if response == .success {
+                        self.text = "success"
+                        Auth.auth().addStateDidChangeListener { (auth: Auth, user: User?) in
+                            if let user = user {
+                                if let email = user.email {
+                                    self.text = "success\nuser.id: \(user.uid)\nuser.email: \(email)\nauth: \(auth)"
+                                }
+                            }
+                        }
+                    } else if response == .error {
+                        self.text = "error"
+                    }
                 })
                     .frame(height: 50, alignment: .center)
                     .padding(25)

@@ -10,6 +10,7 @@ import UIKit
 import SwiftUI
 import AuthenticationServices
 import CryptoKit
+import FirebaseAuth
 
 final class SignInWithApple: UIViewRepresentable {
   func makeUIView(context: Context) -> ASAuthorizationAppleIDButton {
@@ -20,13 +21,18 @@ final class SignInWithApple: UIViewRepresentable {
   }
 }
 
+enum SignInWithAppleToFirebaseResponse {
+    case success
+    case error
+}
+
 
 final class SignInWithAppleToFirebase: UIViewControllerRepresentable {
     private var appleSignInDelegates: SignInWithAppleDelegates! = nil
-    private var currentNonce: String? // Unhashed nonce.
-    private let onLoginEvent: (() -> ())?
+    private let onLoginEvent: ((SignInWithAppleToFirebaseResponse) -> ())?
+    private var currentNonce: String?
     
-    init(_ onLoginEvent: (() -> ())? = nil) {
+    init(_ onLoginEvent: ((SignInWithAppleToFirebaseResponse) -> ())? = nil) {
         self.onLoginEvent = onLoginEvent
     }
     
@@ -39,46 +45,27 @@ final class SignInWithAppleToFirebase: UIViewControllerRepresentable {
         
     }
     
-//    public func onLoginEvent( onLoginEventCallback: @escaping () -> () ) -> SignInWithAppleToFirebase {
-//        self.onLoginEventCallback = onLoginEventCallback
-//        return self
-//    }
-    
     private func showAppleLogin() {
-      let request = ASAuthorizationAppleIDProvider().createRequest()
-      request.requestedScopes = [.fullName, .email]
-
-      performSignIn(using: [request])
-    }
-
-    /// Prompts the user if an existing iCloud Keychain credential or Apple ID credential is found.
-    private func performExistingAccountSetupFlows() {
-      #if !targetEnvironment(simulator)
-      // Note that this won't do anything in the simulator.  You need to
-      // be on a real device or you'll just get a failure from the call.
-      let requests = [
-        ASAuthorizationAppleIDProvider().createRequest(),
-        ASAuthorizationPasswordProvider().createRequest()
-      ]
-
-      performSignIn(using: requests)
-      #endif
+        let nonce = randomNonceString()
+        currentNonce = nonce
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        request.nonce = sha256(nonce)
+        
+        performSignIn(using: [request])
     }
 
     private func performSignIn(using requests: [ASAuthorizationRequest]) {
-      appleSignInDelegates = SignInWithAppleDelegates(window: nil) { success in
-        if success {
-          // update UI
-        } else {
-          // show the user an error
+        guard let currentNonce = self.currentNonce else {
+            return
         }
-      }
+        appleSignInDelegates = SignInWithAppleDelegates(window: nil, currentNonce: currentNonce, onLoginEvent: self.onLoginEvent)
 
-      let controller = ASAuthorizationController(authorizationRequests: requests)
-      controller.delegate = appleSignInDelegates
-      controller.presentationContextProvider = appleSignInDelegates
-
-      controller.performRequests()
+        let authorizationController = ASAuthorizationController(authorizationRequests: requests)
+        authorizationController.delegate = appleSignInDelegates
+        authorizationController.presentationContextProvider = appleSignInDelegates
+        authorizationController.performRequests()
     }
 
 
@@ -128,89 +115,94 @@ final class SignInWithAppleToFirebase: UIViewControllerRepresentable {
 }
 
 class SignInWithAppleDelegates: NSObject {
-  private let signInSucceeded: (Bool) -> Void
-  private weak var window: UIWindow!
+    private let onLoginEvent: ((SignInWithAppleToFirebaseResponse) -> ())?
+    private weak var window: UIWindow!
+    private var currentNonce: String? // Unhashed nonce.
 
-  init(window: UIWindow?, onSignedIn: @escaping (Bool) -> Void) {
-    self.window = window
-    self.signInSucceeded = onSignedIn
-  }
+    init(window: UIWindow?, currentNonce: String, onLoginEvent: ((SignInWithAppleToFirebaseResponse) -> ())? = nil) {
+        self.window = window
+        self.currentNonce = currentNonce
+        self.onLoginEvent = onLoginEvent
+    }
 }
 
 extension SignInWithAppleDelegates: ASAuthorizationControllerDelegate {
-  private func registerNewAccount(credential: ASAuthorizationAppleIDCredential) {
-    // 1
-    let userData = UserData(email: credential.email!,
-                            name: credential.fullName!,
-                            identifier: credential.user)
+    func firebaseLogin(credential: ASAuthorizationAppleIDCredential) {
+        // 3
+        guard let nonce = currentNonce else {
+          fatalError("Invalid state: A login callback was received, but no login request was sent.")
+        }
+        guard let appleIDToken = credential.identityToken else {
+          print("Unable to fetch identity token")
+          return
+        }
+        guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+          print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
+          return
+        }
+        // Initialize a Firebase credential.
+        let credential = OAuthProvider.credential(withProviderID: "apple.com",
+                                                  idToken: idTokenString,
+                                                  rawNonce: nonce)
+        // Sign in with Firebase.
+        Auth.auth().signIn(with: credential) { (authResult, error) in
+            if (error != nil) {
+                // Error. If error.code == .MissingOrInvalidNonce, make sure
+                // you're sending the SHA256-hashed nonce as a hex string with
+                // your request to Apple.
+                print(error?.localizedDescription)
+                self.onLoginEvent?(.error)
+                return
+            }
+            // User is signed in to Firebase with Apple.
+            print("you're in")
+            self.onLoginEvent?(.success)
+        }
+    }
+    private func registerNewAccount(credential: ASAuthorizationAppleIDCredential) {
+        // 1
+        let userData = UserData(email: credential.email!,
+                                name: credential.fullName!,
+                                identifier: credential.user)
 
-    // 2
-    let keychain = UserDataKeychain()
-    do {
-      try keychain.store(userData)
-    } catch {
-      self.signInSucceeded(false)
+        // 2
+        let keychain = UserDataKeychain()
+        do {
+            try keychain.store(userData)
+        } catch {
+            
+        }
+        
+        // 3
+        firebaseLogin(credential: credential)
     }
 
-    // 3
-//    do {
-//      let success = try WebApi.Register(user: userData,
-//                                        identityToken: credential.identityToken,
-//                                        authorizationCode: credential.authorizationCode)
-//      self.signInSucceeded(success)
-//    } catch {
-//      self.signInSucceeded(false)
-//    }
-  }
-
-  private func signInWithExistingAccount(credential: ASAuthorizationAppleIDCredential) {
-    // You *should* have a fully registered account here.  If you get back an error from your server
-    // that the account doesn't exist, you can look in the keychain for the credentials and rerun setup
-
-    // if (WebAPI.Login(credential.user, credential.identityToken, credential.authorizationCode)) {
-    //   ...
-    // }
-    self.signInSucceeded(true)
-  }
-
-  private func signInWithUserAndPassword(credential: ASPasswordCredential) {
-    // You *should* have a fully registered account here.  If you get back an error from your server
-    // that the account doesn't exist, you can look in the keychain for the credentials and rerun setup
-
-    // if (WebAPI.Login(credential.user, credential.password)) {
-    //   ...
-    // }
-    self.signInSucceeded(true)
-  }
-
-  func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-    switch authorization.credential {
-    case let appleIdCredential as ASAuthorizationAppleIDCredential:
-      if let _ = appleIdCredential.email, let _ = appleIdCredential.fullName {
-        registerNewAccount(credential: appleIdCredential)
-      } else {
-        signInWithExistingAccount(credential: appleIdCredential)
-      }
-
-      break
-
-    case let passwordCredential as ASPasswordCredential:
-      signInWithUserAndPassword(credential: passwordCredential)
-
-      break
-
-    default:
-      break
+    private func signInWithExistingAccount(credential: ASAuthorizationAppleIDCredential) {
+        self.firebaseLogin(credential: credential)
     }
-  }
 
-  func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-    // Handle error.
-  }
+
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        switch authorization.credential {
+        case let appleIdCredential as ASAuthorizationAppleIDCredential:
+            if let _ = appleIdCredential.email, let _ = appleIdCredential.fullName {
+                registerNewAccount(credential: appleIdCredential)
+            } else {
+                signInWithExistingAccount(credential: appleIdCredential)
+            }
+            break
+        default:
+            break
+        }
+    }
+
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        self.onLoginEvent?(.error)
+    }
 }
 
 extension SignInWithAppleDelegates: ASAuthorizationControllerPresentationContextProviding {
-  func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-    return self.window
-  }
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.window
+    }
 }
