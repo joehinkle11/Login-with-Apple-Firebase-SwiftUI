@@ -18,20 +18,25 @@ struct ContentView: View {
                 Text(text)
                 SignInWithAppleToFirebase({ response in
                     if response == .success {
-                        self.text = "success"
+                        self.text = "Success"
                         Auth.auth().addStateDidChangeListener { (auth: Auth, user: User?) in
                             if let user = user {
                                 if let email = user.email {
-                                    self.text = "success\nuser.id: \(user.uid)\nuser.email: \(email)\nauth: \(auth)"
+                                    self.text = "Successfully logged into Firebase with Sign in with Apple\n\nuser.id: \(user.uid)\nuser.email: \(email)\nauth: \(auth)"
                                 }
                             }
                         }
                     } else if response == .error {
-                        self.text = "error"
+                        self.text = "Error"
                     }
                 })
                     .frame(height: 50, alignment: .center)
                     .padding(25)
+                Text("Add the button and login logic to your project like this")
+                Image("example")
+                    .resizable()
+                    .scaledToFit()
+                    .padding([.bottom], 5)
                 Button(action: {
                     let webURL = URL(string: "https://github.com/joehinkle11/Login-with-Apple-Firebase-SwiftUI")!
                     if UIApplication.shared.canOpenURL(webURL as URL) {
